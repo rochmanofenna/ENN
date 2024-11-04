@@ -68,7 +68,7 @@ Entangled Neural Networks represents a neural architecture inspired by principle
 - **Sparse Gradient Aggregation and Clipping**: Aggregate and clip sparse gradients to manage extreme values and improve stability.
 - **Implementation**: Leverage meta-learning algorithms for dynamic learning schedules and use gradient clipping in feedback loops for stable training.
 
-#Further Functions to Implement:
+# Further Functions to Implement:
 
 ### **8. Modularity, Scalability, and Task-Specific Customization**
 
