@@ -1,4 +1,14 @@
+# ENNs
 
+Entangled Neural Networks represents a neural architecture inspired by principles from quantum computing, specifically superposition, entanglement, and state interference. By incorporating multi-state neurons, adaptive entanglements, and probabilistic pathways, ENNs aim to provide an adaptable, highly efficient, and contextually aware neural network that competes with existing architectures in both interpretability and real-time adaptability.
+
+### **Primary Goals of ENNs**
+
+1. **Enhanced Contextual Understanding**: ENNs use entangled dependencies to create layers of context within the network, allowing for deeper interpretability.
+2. **Efficiency in Complex Data Processing**: With adaptive multi-state neurons and probabilistic paths, ENNs manage computational resources effectively.
+3. **Scalability and Flexibility**: By integrating hardware-optimized modules, ENNs can run efficiently on high-performance local machines and scale across data centers.
+
+---
 
 ### **1. Core Architecture with Adaptive Multi-State Neurons**
 
