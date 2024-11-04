@@ -1,3 +1,5 @@
+Please also check out my other project [BICEP](https://github.com/rochmanofenna/BICEP)
+---
 # ENNs
 
 Entangled Neural Networks represents a neural architecture inspired by principles from quantum computing, specifically superposition, entanglement, and state interference. By incorporating multi-state neurons, adaptive entanglements, and probabilistic pathways, ENNs aim to provide an adaptable, highly efficient, and contextually aware neural network that competes with existing architectures in both interpretability and real-time adaptability.
