@@ -13,16 +13,18 @@ def process_entangled_neuron_layer(data_batch, weights, num_neurons=10, num_stat
         for n in range(num_neurons):
             neuron_activations[n] = activate_neuron(neuron_activations[n], data_input)
 
-        # Apply attention-based gating with `attention_scores`
+        # Apply attention-based gating
         attention_scores = attention_gate(neuron_activations, threshold=attention_threshold)
         gated_activations = torch.where(attention_scores > attention_threshold, neuron_activations, torch.zeros_like(neuron_activations))
 
-        # Process weight sharing
-        shared_weights = dynamic_weight_sharing(gated_activations, weights, attention_threshold)
+        # Apply probabilistic path activation
+        activated_paths = probabilistic_path_activation(gated_activations, activation_probability=activation_probability)
+
+        # Process weight sharing with activated paths
+        shared_weights = dynamic_weight_sharing(activated_paths, weights, attention_threshold)
         neuron_layer[i] = shared_weights
 
     return neuron_layer
-
 
 def mini_batch_processing(data_stream, batch_size=4):
     """
