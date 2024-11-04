@@ -13,6 +13,9 @@ class Config:
     base_lr = 0.001              # Base learning rate
     max_grad_norm = 1.0          # Gradient clipping max norm
     epochs = 20                  # Number of training epochs
+    priority_threshold = 0.5     # Minimum importance level for async neuron updates
+    activation_probability = 0.2 # Probability of activating a neuron path in probabilistic activation
+    attention_threshold = 0.6    # Threshold for attention gating
     sparsity_mask = torch.ones(num_neurons, num_states)  # Mask for sparse gradient aggregation
 
 
