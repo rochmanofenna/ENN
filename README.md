@@ -1,4 +1,4 @@
-Please also check out my other project [BICEP](https://github.com/rochmanofenna/BICEP)
+Please also check out my other project involving stochastic parallelization [BICEP](https://github.com/rochmanofenna/BICEP)
 ---
 # ENNs **_(IN PROGRESS: CURRENTLY BENCHMARK TESTING)_**
 
