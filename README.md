@@ -1,4 +1,4 @@
-Please also check out my other project involving stochastic parallelization [BICEP](https://github.com/rochmanofenna/BICEP)
+Explore my other project, BICEP, where I dive into advanced stochastic parallelization techniques for enhanced computational efficiency. [BICEP](https://github.com/rochmanofenna/BICEP)
 ---
 # ENNs **_(IN PROGRESS: CURRENTLY BENCHMARK TESTING)_**
 
