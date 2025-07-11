@@ -51,21 +51,30 @@ def sparse_backpropagation(model, input_data, criterion, optimizer, sparsity_tri
         loss.backward()
         optimizer.step()
         
-def low_power_state_collapse(neuron_states, top_k=3):
+def low_power_state_collapse(neuron_states, top_k: int = 3):
     """
-    Collapses neuron states to retain only the top-k most activated states.
-
-    Parameters:
-    - neuron_states: Tensor of neuron states.
-    - top_k: Number of most activated states to retain.
-
-    Returns:
-    - Collapsed neuron states under low-power conditions.
+    Keep only the top-k highest-magnitude activations for each neuron.
+    Works for either:
+      • a 1-D tensor  -> single neuron       (shape: [num_states])
+      • a 2-D tensor  -> batch of neurons    (shape: [num_neurons, num_states])
+    All other values are zeroed out.
     """
-    # Sort states by activation magnitude and keep only the top_k activations
-    top_values, _ = torch.topk(neuron_states, k=top_k, dim=-1)
-    min_top_value = top_values[-1]
-    low_power_states = torch.where(neuron_states >= min_top_value, neuron_states, torch.tensor(0.0))
-    return low_power_states
+    if neuron_states.ndim == 1:
+        # ----- single-neuron vector -----
+        kth_value = torch.topk(neuron_states, k=top_k, largest=True).values[-1]
+        return torch.where(neuron_states >= kth_value,
+                           neuron_states,
+                           torch.zeros_like(neuron_states))
+
+    # ----- batch of neurons (2-D) -----
+    # top_vals: [num_neurons, top_k]
+    top_vals, _ = torch.topk(neuron_states, k=top_k, dim=-1, largest=True)
+    # threshold per neuron = its k-th largest value  → shape [num_neurons, 1]
+    threshold = top_vals[:, -1].unsqueeze(-1)
+    return torch.where(neuron_states >= threshold,
+                       neuron_states,
+                       torch.zeros_like(neuron_states))
+
+
 
 

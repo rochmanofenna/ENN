@@ -14,9 +14,12 @@ def initialize_model_weights(model, entanglement_matrix, config):
     """
     for param in model.parameters():
         if param.requires_grad:
-            param.data = context_aware_initialization(
-                config.num_neurons, config.num_states, entanglement_matrix, method=config.init_method
-            )
+            shape = param.data.shape
+            if shape == (config.num_neurons, config.num_states):
+                param.data = context_aware_initialization(config.num_neurons, config.num_states, entanglement_matrix, method=config.init_method)
+            else:
+                torch.nn.init.xavier_uniform_(param.data)  # or some appropriate default
+    
 
 def train(model, data_loader, target_loader, config):
     optimizer = Adam(model.parameters(), lr=config.base_lr)
