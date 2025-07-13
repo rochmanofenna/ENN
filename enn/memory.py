@@ -29,35 +29,31 @@ def reset_neuron_state(neuron_state):
     """
     return torch.zeros_like(neuron_state)
 
-class ShortTermBuffer(nn.Module):
-    def __init__(self, buffer_size: int = 5):
-        super().__init__()
-        self.buffer_size = buffer_size
-        self.buffer = deque(maxlen=buffer_size)
+class ShortTermBuffer:
+    def __init__(self, max_len: int = 30):
+        self.max_len = max_len
+        self.buffer  = []
 
-    def add_to_buffer(self, state_tensor):
-        self.buffer.append(state_tensor.detach())
+    def add_to_buffer(self, state: torch.Tensor):
+        if len(self.buffer) == self.max_len:
+            self.buffer.pop(0)              # FIFO
+        self.buffer.append(state.detach())  # keep it small & grad-free
 
     def get_recent_activations(self):
-        return list(self.buffer)
+        return self.buffer
 
-def temporal_proximity_scaling(weights: torch.Tensor, recency_factor: float = 0.9) -> torch.Tensor:
+def temporal_proximity_scaling(history: torch.Tensor,
+                               recency_factor: float = 0.9) -> torch.Tensor:
     """
-    weights: Tensor of shape [T, num_states] containing the last T activations for one neuron.
-    recency_factor: float in (0,1], higher means more emphasis on recent entries.
+    history: [L, S]  (L ≤ buffer_size; no list-of-tensors anymore)
+    returns : [S]
+    """
+    # newest entry is last → weights [r^(L-1), …, r^0]
+    L = history.size(0)
+    weights = recency_factor ** torch.arange(L - 1, -1, -1,
+                                             dtype=history.dtype,
+                                             device=history.device)
+    weighted = history * weights.unsqueeze(-1)        # [L,S]
+    return weighted.sum(dim=0) / weights.sum()        # [S]
 
-    Returns a single 1D tensor [num_states] by weighting each row by recency and
-    then averaging across time.
-    """
-    # Number of time steps
-    T = weights.shape[0]
-    # Indices 0...(T-1); 0 = oldest, T-1 = newest
-    time_indices = torch.arange(T, dtype=torch.float32, device=weights.device)
-    # Reverse so newest has highest exponent: recency_factor**(T-1-idx)
-    scaling = recency_factor ** ((T - 1) - time_indices)
-    # Expand to multiply across the num_states dimension
-    scaling = scaling.unsqueeze(1)  # shape [T,1]
-    # Apply weights and sum across time, then normalize by total scaling
-    weighted = weights * scaling        # shape [T, num_states]
-    return weighted.sum(dim=0) / scaling.sum()  # shape [num_states]
 

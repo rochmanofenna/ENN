@@ -22,7 +22,7 @@ class Config:
 
         # sparsity / gating
         self.importance_threshold = 0.1
-        self.sparsity_threshold   = 0.05
+        self.sparsity_threshold   = 0
         self.low_power_k          = 3
         self.activation_probability = 0.2
         self.attention_threshold    = 0.6
@@ -36,3 +36,4 @@ class Config:
         self.max_grad_norm  = 1.0
         self.epochs         = 20
         self.priority_threshold = 0.5
+        self.l1_lambda      = 1e-4
