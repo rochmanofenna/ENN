@@ -1,5 +1,6 @@
 import torch
 import torch.nn.functional as F
+from torch import nn
 
 def entropy_based_pruning(neuron_states, importance_threshold=0.2):
     pruned_states = neuron_states.clone()
@@ -30,11 +31,13 @@ def interference_based_adjustment(neuron_states):
     
     return adjusted_states
     
-class StateAutoEncoder(torch.nn.Module):
+class StateAutoEncoder(nn.Module):
     def __init__(self, input_dim, compressed_dim):
-        super(StateAutoEncoder, self).__init__()
-        self.encoder = torch.nn.Linear(input_dim, compressed_dim)
-        self.decoder = torch.nn.Linear(compressed_dim, input_dim)
+        super(StateAutoEncoder, self).__init__()  # or super().__init__()
+        self.encoder = nn.Linear(input_dim, compressed_dim)
+        self.decoder = nn.Linear(compressed_dim, input_dim)
+
+        
 
     def forward(self, x):
         # Encode and then decode the input
@@ -61,8 +64,8 @@ def advanced_state_collapse(neuron_states, autoencoder, importance_threshold=0.1
     adjusted_states = interference_based_adjustment(pruned_states)
 
     # Step 3: Auto-encode to retain essential features
-    compressed_states, _ = autoencoder(adjusted_states)
+    _, reconstructed_states = autoencoder(adjusted_states)
+    return reconstructed_states
     
-    return compressed_states
 
 

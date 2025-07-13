@@ -1,30 +1,57 @@
 from enn.attention import attention_gate, probabilistic_path_activation
 from enn.weight_sharing import dynamic_weight_sharing
 from enn.core import activate_neuron
+from enn.utils import compute_data_complexity, dynamic_scaling
 import torch
 
-def process_entangled_neuron_layer(data_batch, weights, num_neurons=10, num_states=5, attention_threshold=0.5, activation_probability=0.2):
-    neuron_layer = torch.zeros((data_batch.shape[0], num_neurons, num_states))
+# def process_entangled_neuron_layer(data_batch,
+#                                   weights,
+#                                   num_neurons=10,
+#                                   num_states=5,
+#                                   attention_threshold=0.5,
+#                                   activation_probability=0.2):
+#    """
+#    data_batch: 3D tensor  [batch_size, num_neurons, num_states]
+#    weights:    2D tensor  [num_neurons, num_states]
+#    """
+#    outputs = []
+#    device = data_batch.device
 
-    for i, data_input in enumerate(data_batch):
-        neuron_activations = torch.zeros(num_neurons, num_states)
+#    for data_input in data_batch:  # data_input: [num_neurons, num_states]
+        # --- 1) Per‐neuron state activation ---
+#        neuron_activations = torch.zeros(num_neurons, num_states, device=device)
+#        for n in range(num_neurons):
+            # Feed each neuron's own state‐vector slice into activate_neuron
+#            neuron_activations[n] = activate_neuron(
+#                neuron_activations[n],
+#                data_input[n]
+#            )
 
-        # Activate neurons based on data complexity
-        for n in range(num_neurons):
-            neuron_activations[n] = activate_neuron(neuron_activations[n], data_input)
+        # --- 2) Weight sharing across entangled neurons ---
+       # neuron_activations = dynamic_weight_sharing(neuron_activations, weights)
 
-        # Apply attention-based gating
-        attention_scores = attention_gate(neuron_activations, threshold=attention_threshold)
-        gated_activations = torch.where(attention_scores > attention_threshold, neuron_activations, torch.zeros_like(neuron_activations))
+        # --- 3) Probabilistic pathway gating ---
+       # neuron_activations = probabilistic_path_activation(
+           # neuron_activations,
+           # activation_probability
+       # )
 
-        # Apply probabilistic path activation
-        activated_paths = probabilistic_path_activation(gated_activations, activation_probability=activation_probability)
+        # --- 4) Attention‐based gating ---
+       # neuron_activations = attention_gate(
+           # neuron_activations,
+           # threshold=attention_threshold
+       # )
 
-        # Process weight sharing with activated paths
-        shared_weights = dynamic_weight_sharing(activated_paths, weights, attention_threshold)
-        neuron_layer[i] = shared_weights
+#        outputs.append(neuron_activations)
 
-    return neuron_layer
+    # Stack back into shape [batch_size, num_neurons, num_states]
+#    return torch.stack(outputs, dim=0) ***\\\
+
+# --- TEMPORARY for debugging ---
+def process_entangled_neuron_layer(x, entanglement, *_):
+    # x: [batch, num_neurons, num_states]
+    # entanglement: [num_neurons, num_states] (nn.Parameter)
+    return x * torch.sigmoid(entanglement).unsqueeze(0)
 
 def mini_batch_processing(data_stream, batch_size=4):
     """

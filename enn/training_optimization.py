@@ -24,18 +24,31 @@ class MetaLearningRateScheduler:
         - entanglement_strength: Tensor of entanglement strengths.
         """
         lr_adjustment = self.base_lr * (
-            1 + self.stability_factor * (1 - neuron_stability) + self.entanglement_factor * entanglement_strength
+            1 
+            + self.stability_factor * (1 - torch.mean(neuron_stability)) 
+            + self.entanglement_factor * torch.mean(entanglement_strength)
         )
         for param_group in optimizer.param_groups:
-            param_group['lr'] = lr_adjustment
+            param_group['lr'] = lr_adjustment.item()
             
             
 def sparse_gradient_aggregation(model, sparsity_mask):
+    mask_vec = sparsity_mask.float()
     for param in model.parameters():
-        if param.grad is not None:
-            mask = sparsity_mask.float().view(1, -1)
-            if param.grad.shape[0] == mask.shape[1]:  # Ensure compatible shapes
-                param.grad *= mask
+        if param.grad is None:
+            continue
+        g = param.grad
+        if g.shape == mask_vec.shape:
+            # Gradient has same shape as mask (e.g., both are [num_neurons])
+            g *= mask_vec
+        elif g.shape[0] == mask_vec.numel():
+            # Gradient is [num_neurons, ...], apply mask along first dim
+            g *= mask_vec.view(-1, 1)
+        elif g.numel() == mask_vec.numel():
+            # Gradient is a flat vector of same length, elementwise multiply
+            g *= mask_vec.view(-1)
+        # else: shapes don’t match mask, skip masking for this param.
+    
 
 
 

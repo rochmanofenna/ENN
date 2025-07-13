@@ -1,6 +1,6 @@
 import torch
 import asyncio
-from config import Config
+from enn.config import Config
 from enn.model import ENNModelWithSparsityControl
 
 # Initialize the model with configuration settings
