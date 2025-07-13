@@ -1,23 +1,20 @@
 import torch
 
-def dynamic_sparsity_control(neuron_states, sparsity_threshold):
+@torch.no_grad()
+def dynamic_sparsity_control(states: torch.Tensor,
+                             threshold: float = 0.05) -> torch.Tensor:
     """
-    Applies dynamic sparsity control by turning off low-importance neurons.
-
-    Parameters:
-    - neuron_states: Tensor of neuron states.
-    - sparsity_threshold: Threshold below which neurons become inactive.
-
-    Returns:
-    - Sparse neuron states with low-priority neurons deactivated.
+    Zero-out values with |x| < threshold, **in-place** to save memory.
+    Keeps gradients for the surviving entries.
     """
-    # Calculate importance scores (e.g., based on absolute activation values)
-    importance_scores = torch.abs(neuron_states)
-    sparsity_mask = (importance_scores >= sparsity_threshold).float()
-    
-    # Apply the mask to deactivate low-priority neurons
-    sparse_neuron_states = neuron_states * sparsity_mask
-    return sparse_neuron_states
+    if threshold <= 0.0:
+        return states
+    mask = states.abs() < threshold          # True = prune
+    states = states.clone()                  # keep autograd history
+    states[mask] = 0.0
+    return states
+                        # pruned tensor
+
 
 def event_trigger(input_data, threshold=0.1):
     """
