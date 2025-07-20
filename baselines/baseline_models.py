@@ -1,7 +1,7 @@
 """
 Baseline neural network models for comprehensive benchmarking against ENN.
 
-Includes: LSTM, Transformer, CNN, MLP, and Liquid Neural Networks (LNN).
+Includes: LSTM, Transformer, CNN, MLP, Liquid Neural Networks (LNN), and ENN-BICEP hybrids.
 All models are designed to be comparable with ENN for fair evaluation.
 """
 
