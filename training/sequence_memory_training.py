@@ -54,8 +54,8 @@ def main():
     cfg.num_neurons = 2 * T
     cfg.num_states  = S
     cfg.buffer_size = int(0.3 * T)
-    cfg.epochs      = 120
-    batch_size      = 32
+    cfg.epochs      = 114  # Standardized training period
+    batch_size      = cfg.batch_size  # Use config batch size
 
     X_np, Y_np = make_seq_copy_data(N, T, S)
     X_np = (X_np - X_np.mean()) / (X_np.std() + 1e-6)

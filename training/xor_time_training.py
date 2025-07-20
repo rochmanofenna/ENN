@@ -18,12 +18,16 @@ def main():
     cfg.num_layers   = 2
     cfg.num_neurons  = 30
     cfg.num_states   = 1
-    batch_size       = 64
+    cfg.low_power_k  = 1  # Cannot exceed num_states
+    cfg.input_dim    = 1  # XOR input is 1-dimensional
+    cfg.epochs       = 114  # Extended training period
+    batch_size       = cfg.batch_size  # Use config batch size
 
     X_np, Y_np = make_xor_data(N=4096, T=30)
     X = torch.from_numpy(X_np)
     Y = torch.from_numpy(Y_np)
-    ds, loader = TensorDataset(X, Y), DataLoader(X, batch_size=batch_size, shuffle=True)
+    ds = TensorDataset(X, Y)
+    loader = DataLoader(ds, batch_size=batch_size, shuffle=True)
 
     model   = ENNModelWithSparsityControl(cfg)
     opt     = torch.optim.Adam(model.parameters(), lr=1e-3)

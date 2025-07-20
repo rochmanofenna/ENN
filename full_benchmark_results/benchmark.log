@@ -1,0 +1,10 @@
+2025-07-20 02:40:47,235 - Benchmark - INFO - Starting Comprehensive ENN Benchmark
+2025-07-20 02:40:47,235 - Benchmark - INFO - Configuration | {'quick': False, 'output_dir': './full_benchmark_results', 'task_types': ['regression', 'classification', 'memory'], 'epochs': 114, 'runs': 3}
+2025-07-20 02:40:47,235 - Benchmark - INFO - Benchmark Configuration | {'dataset_sizes': [500, 1000, 2000, 4000], 'sequence_lengths': [10, 25, 50, 100], 'input_dimensions': [1, 3, 5, 8], 'epochs': 114, 'runs': 3}
+2025-07-20 02:40:47,235 - Benchmark - INFO - Running regression benchmark...
+2025-07-20 02:40:47,254 - Benchmark - ERROR - Error in regression benchmark: low_power_k (3) cannot exceed num_states (2)
+2025-07-20 02:40:47,254 - Benchmark - INFO - Running classification benchmark...
+2025-07-20 02:40:47,259 - Benchmark - ERROR - Error in classification benchmark: low_power_k (3) cannot exceed num_states (2)
+2025-07-20 02:40:47,259 - Benchmark - INFO - Running memory benchmark...
+2025-07-20 02:40:47,262 - Benchmark - ERROR - Error in memory benchmark: low_power_k (3) cannot exceed num_states (2)
+2025-07-20 02:40:47,262 - Benchmark - ERROR - No benchmark results generated

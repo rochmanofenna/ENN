@@ -1,0 +1,25 @@
+2025-07-20 02:23:46,269 - ENN_Enhanced - INFO - Starting Enhanced ENN Training | {'framework': 'PyTorch'}
+2025-07-20 02:23:46,273 - ENN_Enhanced - INFO - Configuration | {'neurons': 15, 'states': 3, 'layers': 4, 'epochs': 114, 'batch_size': 32}
+2025-07-20 02:23:46,273 - ENN_Enhanced - INFO - Generating enhanced synthetic dataset
+2025-07-20 02:23:46,883 - ENN_Enhanced - INFO - Model initialized | {'parameters': 483, 'trainable': 483}
+2025-07-20 02:23:47,019 - ENN_Enhanced - INFO - Epoch 1/114 | {'loss': '0.992255', 'sparsity': '0.000', 'grad_norm': '0.0631', 'lr': '0.000500', 'memory_mb': '0.0', 'time_s': '0.14'}
+2025-07-20 02:23:47,880 - ENN_Enhanced - INFO - Epoch 10/114 | {'loss': '0.000050', 'sparsity': '0.000', 'grad_norm': '0.0000', 'lr': '0.000491', 'memory_mb': '0.0', 'time_s': '0.09'}
+2025-07-20 02:23:48,888 - ENN_Enhanced - INFO - Epoch 20/114 | {'loss': '0.000050', 'sparsity': '0.000', 'grad_norm': '0.0000', 'lr': '0.000463', 'memory_mb': '0.0', 'time_s': '0.11'}
+2025-07-20 02:23:48,891 - ENN_Enhanced - INFO - Checkpoint saved | {'epoch': 20}
+2025-07-20 02:23:49,881 - ENN_Enhanced - INFO - Epoch 30/114 | {'loss': '0.000050', 'sparsity': '0.000', 'grad_norm': '0.0000', 'lr': '0.000419', 'memory_mb': '0.0', 'time_s': '0.09'}
+2025-07-20 02:23:50,822 - ENN_Enhanced - INFO - Epoch 40/114 | {'loss': '0.000050', 'sparsity': '0.000', 'grad_norm': '0.0000', 'lr': '0.000363', 'memory_mb': '0.0', 'time_s': '0.09'}
+2025-07-20 02:23:50,823 - ENN_Enhanced - INFO - Checkpoint saved | {'epoch': 40}
+2025-07-20 02:23:51,740 - ENN_Enhanced - INFO - Epoch 50/114 | {'loss': '0.000050', 'sparsity': '0.000', 'grad_norm': '0.0000', 'lr': '0.000298', 'memory_mb': '0.0', 'time_s': '0.09'}
+2025-07-20 02:23:52,655 - ENN_Enhanced - INFO - Epoch 60/114 | {'loss': '0.000050', 'sparsity': '0.000', 'grad_norm': '0.0000', 'lr': '0.000229', 'memory_mb': '0.0', 'time_s': '0.09'}
+2025-07-20 02:23:52,656 - ENN_Enhanced - INFO - Checkpoint saved | {'epoch': 60}
+2025-07-20 02:23:53,573 - ENN_Enhanced - INFO - Epoch 70/114 | {'loss': '0.000050', 'sparsity': '0.000', 'grad_norm': '0.0000', 'lr': '0.000162', 'memory_mb': '0.0', 'time_s': '0.09'}
+2025-07-20 02:23:54,581 - ENN_Enhanced - INFO - Epoch 80/114 | {'loss': '0.000050', 'sparsity': '0.000', 'grad_norm': '0.0000', 'lr': '0.000102', 'memory_mb': '0.0', 'time_s': '0.11'}
+2025-07-20 02:23:54,582 - ENN_Enhanced - INFO - Checkpoint saved | {'epoch': 80}
+2025-07-20 02:23:55,608 - ENN_Enhanced - INFO - Epoch 90/114 | {'loss': '0.000050', 'sparsity': '0.000', 'grad_norm': '0.0000', 'lr': '0.000053', 'memory_mb': '0.0', 'time_s': '0.09'}
+2025-07-20 02:23:56,527 - ENN_Enhanced - INFO - Epoch 100/114 | {'loss': '0.000050', 'sparsity': '0.000', 'grad_norm': '0.0000', 'lr': '0.000018', 'memory_mb': '0.0', 'time_s': '0.09'}
+2025-07-20 02:23:56,528 - ENN_Enhanced - INFO - Checkpoint saved | {'epoch': 100}
+2025-07-20 02:23:57,438 - ENN_Enhanced - INFO - Epoch 110/114 | {'loss': '0.000050', 'sparsity': '0.000', 'grad_norm': '0.0000', 'lr': '0.000002', 'memory_mb': '0.0', 'time_s': '0.09'}
+2025-07-20 02:23:57,810 - ENN_Enhanced - INFO - Checkpoint saved | {'epoch': 114}
+2025-07-20 02:23:57,812 - ENN_Enhanced - INFO - Training completed | {'total_time': '10.93s', 'avg_epoch_time': '0.10s', 'final_loss': '0.000050', 'final_sparsity': '0.000'}
+2025-07-20 02:23:57,814 - ENN_Enhanced - INFO - Final evaluation | {'test_loss': '0.000000', 'test_samples': 100}
+2025-07-20 02:23:57,814 - ENN_Enhanced - INFO - Enhanced training demo completed successfully!

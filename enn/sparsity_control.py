@@ -64,8 +64,13 @@ def low_power_state_collapse(neuron_states, top_k: int = 3):
                            torch.zeros_like(neuron_states))
 
     # ----- batch of neurons (2-D) -----
-    # top_vals: [num_neurons, top_k]
-    top_vals, _ = torch.topk(neuron_states, k=top_k, dim=-1, largest=True)
+    # Ensure top_k doesn't exceed the number of states
+    actual_k = min(top_k, neuron_states.size(-1))
+    if actual_k <= 0:
+        return torch.zeros_like(neuron_states)
+    
+    # top_vals: [num_neurons, actual_k]
+    top_vals, _ = torch.topk(neuron_states, k=actual_k, dim=-1, largest=True)
     # threshold per neuron = its k-th largest value  → shape [num_neurons, 1]
     threshold = top_vals[:, -1].unsqueeze(-1)
     return torch.where(neuron_states >= threshold,

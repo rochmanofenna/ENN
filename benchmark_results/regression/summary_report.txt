@@ -1,0 +1,13 @@
+# ENN Comprehensive Benchmark Report\n## Overall Performance Summary\n                  final_loss         training_time         n_parameters convergence_epoch
+                        mean     std          mean     std         mean              mean
+model                                                                                    
+cnn                   0.0304  0.0158        3.8293  1.6955      19537.0           28.3125
+enn_full              0.0002  0.0001       16.1543  5.7803     150693.0           43.6250
+enn_minimal           0.0003  0.0002        3.8311  1.3603       6014.0           41.3125
+enn_neuron_only       0.0003  0.0001        5.6611  1.9837      19166.0           42.8125
+enn_original          0.0014  0.0017        1.0652  0.3323       1046.0           36.3125
+enn_temporal_only     0.0019  0.0037        6.1548  1.9276      25566.0           36.5625
+lnn                   0.0996  0.0747        1.3294  0.6885       4609.0           48.8750
+lstm                  0.0188  0.0143        3.0703  1.6746      53313.0           44.3750
+mlp                   0.0141  0.0063        0.3908  0.1333      19457.0           38.1875
+transformer           0.0067  0.0030        6.0622  2.8837     100481.0           40.0000\n\n## Best Performing Models\nBest Loss: enn_temporal_only (Loss: 0.0000)\nFastest Training: mlp (0.26s)\nMost Efficient: enn_full\n\n## ENN Variants Analysis\nENN Performance Ranking (by average loss):\n1. enn_full: 0.0002\n2. enn_neuron_only: 0.0003\n3. enn_minimal: 0.0003\n4. enn_original: 0.0014\n5. enn_temporal_only: 0.0019\n

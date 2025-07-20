@@ -4,7 +4,7 @@ import numpy as np
 import torch
 from torch.utils.data import TensorDataset, DataLoader
 from enn.model import ENNModelWithSparsityControl
-from config import Config
+from enn.config import Config
 
 # 1) Generate synthetic data
 #    Let's build N samples of length T, each with S states.
@@ -23,10 +23,11 @@ y = X[:,-1,:].sum(axis=1)                       # shape [N,]
 tensor_X = torch.tensor(X, dtype=torch.float32)  # [N, T, S]
 tensor_y = torch.tensor(y, dtype=torch.float32)  # [N]
 dataset = TensorDataset(tensor_X, tensor_y)
-loader  = DataLoader(dataset, batch_size=32, shuffle=True)
+loader  = DataLoader(dataset, batch_size=config.batch_size, shuffle=True)
 
 # 3) Build your model, optimizer, loss
 config = Config()  # now takes no args
+config.input_dim = S  # Set input dimension to match data features
 model  = ENNModelWithSparsityControl(config)
 opt    = torch.optim.Adam(model.parameters(), lr=1e-3)
 loss_fn= torch.nn.MSELoss()
